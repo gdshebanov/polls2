@@ -1,0 +1,6 @@
+<form method="post" action="{% url 'main:check' %}">
+    {% csrf_token %}
+    <h4>Привет!</h4>
+    <p><input type="text" name="school" value=""/> номер нашей школы</p>
+    <p><input type='submit' value='вход'></p>
+</form>

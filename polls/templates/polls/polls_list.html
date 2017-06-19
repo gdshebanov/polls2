@@ -1,0 +1,7 @@
+<h2>Школа 1285, 1986-1996</h2>
+<h3>Голосования:</h3>
+<ul>
+{% for poll in polls %}
+  <li><a href="{% url 'polls:detail' poll.id %}">{{poll}}</a>(голосов: {{poll.count_total_votes}})</li>
+{% endfor %}
+</ul>

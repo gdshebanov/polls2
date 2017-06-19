@@ -1,0 +1,45 @@
+<h2>Школа 1285, 1986-1996</h2>
+<a href="{% url 'polls:list' %}">Назад</a>
+<h3>{{poll}}</h3>
+
+
+{% if can_vote %}
+  <form method="post" onsubmit="validate()" action="{% url 'polls:vote' poll.id %}">
+      {% csrf_token %}
+      {% for choice in choices %}
+        <input type="radio" value="{{choice.id}}" name="choice" id='{{choice.id}}'/>{{choice}}<br/>
+      {% endfor %}
+      <p><input type="text" name="name" value=""/> имя</p>
+      <p><input type='submit' value='голосовать!'></p>
+  </form>
+  {% else %}Спасибо за голос!
+{% endif %}
+
+<hr/>
+<h4>результаты:</h4>
+{% for choice in choices %}
+    {{choice}}: {{choice.count_votes}}<br/>
+{% endfor %}
+<p>всего: {{poll.count_total_votes}} голосов</p>
+
+<script>
+var choices = document.forms[0];
+var first={{choices.0.id}};
+var count={{choices.count}};
+function validate() {
+  var checked = false;
+  for (i=first; i<=count; i++) {
+    if (choices[i].checked) {
+      checked = true;
+      break;
+    }
+  }
+  if (!checked) {
+    alert('Определись с выбором!');
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+</script>
